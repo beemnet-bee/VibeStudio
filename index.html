@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Studio - The Future of Coding</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M25 35 L50 75 L75 35' fill='none' stroke='%230ea5e9' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='25' r='8' fill='%230ea5e9'/%3E%3C/svg%3E">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --bg-deep: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --panel-bg: rgba(255, 255, 255, 0.85);
+            --border-color: rgba(0, 0, 0, 0.08);
+            --accent-primary: #0ea5e9;
+            --accent-secondary: #0284c7;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            margin: 0;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.5s var(--ease-out-expo), color 0.5s var(--ease-out-expo);
+        }
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-primary);
+        }
+        
+        /* Glassmorphism */
+        .glass-panel {
+            background: var(--panel-bg);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--border-color);
+        }
+        
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.4) 100%);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Isometric Logic */
+        .isometric-view {
+            perspective: 2500px;
+        }
+        .isometric-card-container {
+            transform: rotateX(50deg) rotateZ(-30deg);
+            transform-style: preserve-3d;
+            transition: all 0.8s var(--ease-out-expo);
+        }
+        
+        /* Animations */
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slide-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slide-right {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes scale-in {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .animate-fade-in { animation: fade-in 0.6s var(--ease-out-expo) forwards; }
+        .animate-slide-up { animation: slide-up 0.6s var(--ease-out-expo) forwards; }
+        .animate-slide-right { animation: slide-right 0.6s var(--ease-out-expo) forwards; }
+        .animate-scale-in { animation: scale-in 0.5s var(--ease-out-expo) forwards; }
+        .cursor-blink { animation: blink 1s step-end infinite; }
+        
+        .stagger-1 { animation-delay: 0.1s; opacity: 0; }
+        .stagger-2 { animation-delay: 0.15s; opacity: 0; }
+        .stagger-3 { animation-delay: 0.2s; opacity: 0; }
+
+        .text-gradient {
+            background: linear-gradient(to bottom right, #0f172a, #64748b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Highlighting Overrides */
+        pre[class*="language-"] {
+            background: transparent !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+        code[class*="language-"] {
+            background: transparent !important;
+            text-shadow: none !important;
+        }
+        .token.comment { color: #64748b !important; }
+        .token.keyword { color: #0ea5e9 !important; }
+        .token.string { color: #10b981 !important; }
+        .token.function { color: #6366f1 !important; }
+        .token.operator { color: #94a3b8 !important; }
+        .token.boolean { color: #f43f5e !important; }
+
+        .tab-content-wrapper {
+            animation: fade-in 0.4s var(--ease-out-expo) forwards;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "recharts": "https://esm.sh/recharts@^3.7.0",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "lucide-react": "https://esm.sh/lucide-react@^0.474.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.40.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "prismjs": "https://esm.sh/prismjs@1.29.0",
+    "prettier": "https://esm.sh/prettier@3.0.3/standalone",
+    "prettier/parser-babel": "https://esm.sh/prettier@3.0.3/plugins/babel",
+    "prettier/parser-typescript": "https://esm.sh/prettier@3.0.3/plugins/typescript",
+    "prettier/": "https://esm.sh/prettier@^3.8.1/",
+    "prismjs/": "https://esm.sh/prismjs@^1.30.0/"
+  }
+}
+</script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>

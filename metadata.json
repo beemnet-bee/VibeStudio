@@ -1,0 +1,8 @@
+{
+  "name": "Vibe Studio",
+  "description": "A next-generation web-based IDE and development workspace featuring isometric project visualization, AI code assistance, and advanced analytics.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
